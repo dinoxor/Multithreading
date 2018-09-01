@@ -10,9 +10,11 @@ namespace Multithreading
         {
             var badProcess = new BadProcess();
             var lockProcess = new LockProcess();
+            var areProcess = new AutoResetEventProcess();
 
             //badProcess.Run();
-            lockProcess.Run();
+            //lockProcess.Run();
+            areProcess.Run();
         }
     }
 }
