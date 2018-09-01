@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Diagnostics;
 
 namespace Multithreading
 {
@@ -6,7 +8,8 @@ namespace Multithreading
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var badProcess = new BadProcess();
+            badProcess.Run();
         }
     }
 }
