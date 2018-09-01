@@ -14,6 +14,8 @@ namespace Multithreading
             Thread thread1 = new Thread(new ThreadStart(DisplayThread1));
             Thread thread2 = new Thread(new ThreadStart(DisplayThread2));
 
+            Console.WriteLine("Lock \n");
+
             thread1.Start();
             thread2.Start();
         }
@@ -24,10 +26,12 @@ namespace Multithreading
             {
                 lock (this)
                 {
-                    _threadOutput = "thread 1";
+                    Console.WriteLine($"Thread 1 is starting");
 
+                    _threadOutput = "1";
                     Thread.Sleep(1000);
-                    Console.WriteLine(_threadOutput);
+
+                    Console.WriteLine($"Thread 1 finishes with output of: {_threadOutput}\n");
                 }
                 
             }
@@ -38,10 +42,12 @@ namespace Multithreading
             {
                 lock (this)
                 {
-                    _threadOutput = "thread 2";
+                    Console.WriteLine($"Thread 2 is starting");
 
+                    _threadOutput = "2";
                     Thread.Sleep(1000);
-                    Console.WriteLine(_threadOutput);
+
+                    Console.WriteLine($"Thread 2 finishes with output of: {_threadOutput}\n");
                 }
                 
             }

@@ -30,11 +30,12 @@ namespace Multithreading
                 //4. Receives a signal so it will proceed
                 _blockThread1.WaitOne();
 
-                _threadOutput = "thread 1";
+                Console.WriteLine($"Thread 1 is starting");
 
-                Console.WriteLine($"{_threadOutput } is starting");
+                _threadOutput = "1";
                 Thread.Sleep(500);
-                Console.WriteLine($"{_threadOutput} finishes executing\n");
+
+                Console.WriteLine($"Thread 1 finishes with output of: {_threadOutput}\n");
 
                 //6. Signals that thread 2 can continue
                 _blockThread2.Set();
@@ -48,11 +49,12 @@ namespace Multithreading
                 //5. waits until it receives a signal from SET
                 _blockThread2.WaitOne();
 
-                _threadOutput = "thread 2";
+                Console.WriteLine($"Thread 2 is starting");
 
-                Console.WriteLine($"{_threadOutput } is starting");
+                _threadOutput = "2";
                 Thread.Sleep(1000);
-                Console.WriteLine($"{_threadOutput} finishes executing\n");
+
+                Console.WriteLine($"Thread 2 finishes with output of: {_threadOutput}\n");
 
                 //3. Signals that thread1 can continue
                 _blockThread1.Set();
