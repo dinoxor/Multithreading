@@ -9,7 +9,10 @@ namespace Multithreading
         static void Main(string[] args)
         {
             var badProcess = new BadProcess();
-            badProcess.Run();
+            var lockProcess = new LockProcess();
+
+            //badProcess.Run();
+            lockProcess.Run();
         }
     }
 }

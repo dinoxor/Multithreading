@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Multithreading
 {
-    public class BadProcess
+    public class LockProcess
     {
         private string _threadOutput = string.Empty;
 
@@ -22,25 +22,29 @@ namespace Multithreading
         {
             while (true)
             {
-                _threadOutput = "thread 1";
+                lock (this)
+                {
+                    _threadOutput = "thread 1";
 
-                Thread.Sleep(1000);
-                Console.WriteLine(_threadOutput);
+                    Thread.Sleep(1000);
+                    Console.WriteLine(_threadOutput);
+                }
+                
             }
         }
         private void DisplayThread2()
         {
             while (true)
             {
-                _threadOutput = "thread 2";
+                lock (this)
+                {
+                    _threadOutput = "thread 2";
 
-                Thread.Sleep(1000);
-                Console.WriteLine(_threadOutput);
+                    Thread.Sleep(1000);
+                    Console.WriteLine(_threadOutput);
+                }
+                
             }
         }
-
     }
-
 }
-
-    
