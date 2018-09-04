@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Numerics;
 
 namespace Multithreading.Project_Euler
 {
     public class HelperService
     {
-        public List<int> GetFibonacciSequenceByTerm(int targetTerm)
+        public List<BigInteger> GetFibonacciSequenceByTerm(int targetTerm)
         {
-            var fibSequences = new List<int> { 1, 2 };
+            var fibSequences = new List<BigInteger> { 1, 2 };
 
             if (targetTerm == 1)
             {
-                return new List<int> { 1 };
+                return new List<BigInteger> { 1 };
             }
             else if (targetTerm == 2)
             {
-                return new List<int> { 1, 2 };
+                return new List<BigInteger> { 1, 2 };
             }
             else
             {
-                var fibValue1 = 1;
-                var fibValue2 = 2;
+                BigInteger fibValue1 = 1;
+                BigInteger fibValue2 = 2;
 
                 for (int term = 3; term <= targetTerm; term++)
                 {
-                    var newFibValue = fibValue1 + fibValue2;
+                    BigInteger newFibValue = fibValue1 + fibValue2;
                     fibValue1 = fibValue2;
                     fibValue2 = newFibValue;
 
@@ -36,13 +36,13 @@ namespace Multithreading.Project_Euler
             return fibSequences;
         }
 
-        public List<int> GetFibonacciSequenceByLessThanOrEqualToValue(int value)
+        public List<BigInteger> GetFibonacciSequenceByLessThanOrEqualToValue(int value)
         {
-            var fibSequences = new List<int> { 1, 2 };
+            var fibSequences = new List<BigInteger> { 1, 2 };
 
-            var fibValue1 = 1;
-            var fibValue2 = 2;
-            var newFibValue = 0;
+            BigInteger fibValue1 = 1;
+            BigInteger fibValue2 = 2;
+            BigInteger newFibValue = 0;
 
             var continueFib = true;
 
