@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Multithreading
 {
-    public class BadProcess
+    public class BadProcess:IExampleProcess
     {
         private string _threadOutput = string.Empty;
 

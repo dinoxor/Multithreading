@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Multithreading
 {
-    public class LockProcess
+    public class LockProcess : IExampleProcess
     {
         private string _threadOutput = string.Empty;
 

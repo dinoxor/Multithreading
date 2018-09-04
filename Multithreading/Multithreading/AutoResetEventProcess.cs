@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Multithreading
 {
-    public class AutoResetEventProcess
+    public class AutoResetEventProcess: IExampleProcess
     {
         private string _threadOutput = string.Empty;
         AutoResetEvent _blockThread1 = new AutoResetEvent(false); //blocks thread aka "Am I able to automatically go now?"
