@@ -21,7 +21,12 @@ namespace Amazon
             _numRows = 5;
             _numColumns = 2;
             int[,] area = { { 1, 1, 1, 1, 0 },
-                            { 1, 1, 1, 9, 0 } };
+                            { 1, 1, 1, 9, 0 } }; // 4
+
+            int[,] area2 = { { 1, 1, 1, 0, 0 },
+                             { 1, 0, 0, 9, 0 },
+                             { 1, 1, 1, 1, 0 }}; //6
+
             int[] position = { 0, 0};
 
             //VerifyProperty();
@@ -29,7 +34,7 @@ namespace Amazon
             //Debug.WriteLine(area[0, 1]); // first row, second column
             //Debug.WriteLine(area[0, 4]); // first row, fourth column
 
-            var total = Right(area, position);
+            var total = Right(area2, position);
 
             Debug.WriteLine(total);
         }
@@ -54,25 +59,25 @@ namespace Amazon
         {
             var position = new Position(area, currentPosition);
 
-            var isDeadEnd = (!position.canGoRight
-                            && !position.canGoDown
-                            && !position.canGoUp);
+            var isDeadEnd = (position.NextRightPositionResult == null
+                            && position.NextDownPositionResult == null
+                            && position.NextUpPositionResult == null);
 
             if (isDeadEnd)
             {
                 return -100;
             }
 
-            if (position.canGoRight)
+            if (position.NextRightPositionResult != null)
             {
-                if (area[next_right[0], next_right[1]] == 9)
+                if (position.NextRightPositionResult == 9)
                 {
                     return 1;
                 }
 
-                if (area[next_right[0], next_right[1]] == 1)
+                if (position.NextRightPositionResult == 1)
                 {
-                    return 1 + Right(area, next_right);
+                    return 1 + Right(area, position.NextRightPosition);
                 }
 
                 //if (currentPosition[0] == 0 && currentPosition[1] == 0)// if (0,0)
@@ -81,37 +86,36 @@ namespace Amazon
                 //}
             }
 
-            if (CanGoDown(currentPosition))
+            if (position.NextDownPositionResult != null)
             {
-                if (area[next_down[0], next_down[1]] == 9)
+                if (position.NextDownPositionResult == 9)
                 {
                     return 1;
                 }
 
-                if (area[next_down[0], next_down[1]] == 1)
+                if (position.NextDownPositionResult == 1)
                 {
-                    return 1 + Down(area, next_down);
+                    return 1 + Down(area, position.NextDownPosition);
                 }
 
-                if (area[next_right[0], next_right[1]] == 0 && isDeadEnd)
-                {
-                    return -100;
-                }
+                //if (area[next_right[0], next_right[1]] == 0 && isDeadEnd)
+                //{
+                //    return -100;
+                //}
             }
 
-            return -1000;
+            return 0;
         }
 
 
 
         static private int Down(int[,] area, int[] currentPosition)
         {
-            var isDeadEnd = (!CanGoRight(currentPosition) && !CanGoDown(currentPosition) && !CanGoLeft(currentPosition));
+            var position = new Position(area, currentPosition);
 
-            var next_right = GetRightPosition(currentPosition);
-            var next_left = GetLeftPosition(currentPosition);
-            var next_down = GetDownPosition(currentPosition);
-
+            var isDeadEnd = (position.NextRightPositionResult == null
+                            && position.NextDownPositionResult == null
+                            && position.NextLeftPositionResult == null);
 
 
             return 1;

@@ -11,20 +11,15 @@ namespace Amazon
         private int _numColumns;
         private int[] _currentPosition;
 
-        private int[] _nextRightPosition;
-        private int[] _nextDownPosition;
-        private int[] _nextUpPosition;
-        private int[] _nextLeftPosition;
-
+        public int[] NextRightPosition;
+        public int[] NextDownPosition;
+        public int[] NextUpPosition;
+        public int[] NextLeftPosition;
+              
         public int? NextRightPositionResult;
         public int? NextDownPositionResult;
         public int? NextUpPositionResult;
-        public int? NextLeftPositionResult;
-
-        public bool CanGoRight;
-        public bool CanGoDown;
-        public bool CanGoUp;
-        public bool CanGoLeft;
+        public int? NextLeftPositionResult;       
 
         public Position(int[,] area, int[] currentPosition)
         {
@@ -43,49 +38,49 @@ namespace Amazon
         {
             //(x+1 , y)
             //first row, column + 1 
-            _nextRightPosition = new int[] { _currentPosition[0], _currentPosition[1] + 1  };
+            NextRightPosition = new int[] { _currentPosition[0], _currentPosition[1] + 1  };
 
             //if x axis is less than number of rows
             //AND area(x+1 , y) does not equal 0
-            CanGoRight = _nextRightPosition[1] < _numColumns && _area[_nextRightPosition[0], _nextRightPosition[1]] != 0 ? true : false;
+            var canGoRight = NextRightPosition[1] < _numColumns && _area[NextRightPosition[0], NextRightPosition[1]] != 0 ? true : false;
 
-            NextRightPositionResult = CanGoRight ? _area[_nextRightPosition[0],_nextRightPosition[1]] : (int?)null;
+            NextRightPositionResult = canGoRight ? _area[NextRightPosition[0],NextRightPosition[1]] : (int?)null;
         }
 
         private void SetDownPositionProperties()
         {
             //(x , y+1)
             //row + 1, column
-            _nextDownPosition = new int[] { _currentPosition[0] + 1 , _currentPosition[1] };
+            NextDownPosition = new int[] { _currentPosition[0] + 1 , _currentPosition[1] };
 
             //if y axis is less than number of columns
             //AND area(x,y+1) does not equal 0
-            CanGoDown = _nextDownPosition[0] < _numRows && _area[_nextDownPosition[0], _nextDownPosition[1]] != 0 ? true : false;
+            var canGoDown = NextDownPosition[0] < _numRows && _area[NextDownPosition[0], NextDownPosition[1]] != 0 ? true : false;
         
-            NextDownPositionResult = CanGoDown ? _area[_nextDownPosition[0], _nextDownPosition[1]] : (int?)null;
+            NextDownPositionResult = canGoDown ? _area[NextDownPosition[0], NextDownPosition[1]] : (int?)null;
 
         }
 
         private void SetUpPositionProperties()
         {
             //(x , y-1)
-            _nextUpPosition = new int[] { _currentPosition[0] -1, _currentPosition[1] };
+            NextUpPosition = new int[] { _currentPosition[0] -1, _currentPosition[1] };
 
-            CanGoUp = _nextUpPosition[0] >= 0 && _area[_nextUpPosition[0], _nextUpPosition[1]] != 0 ? true : false;
+            var canGoUp = NextUpPosition[0] >= 0 && _area[NextUpPosition[0], NextUpPosition[1]] != 0 ? true : false;
 
-            NextUpPositionResult = CanGoUp ? _area[_nextUpPosition[0], _nextUpPosition[1]] : (int?)null;
+            NextUpPositionResult = canGoUp ? _area[NextUpPosition[0], NextUpPosition[1]] : (int?)null;
         }
 
         private void SetLeftPositionProperties()
         {
             //(x-1 , y)
-            _nextLeftPosition = new int[] { _currentPosition[0], _currentPosition[1] -1 };
+            NextLeftPosition = new int[] { _currentPosition[0], _currentPosition[1] -1 };
 
             //if x axis is greater than or equal to 0
             //AND area(x-1, y) != 0
-            CanGoLeft = _nextLeftPosition[1] >= 0 && _area[_nextLeftPosition[0], _nextLeftPosition[1]] != 0 ? true : false;
+            var canGoLeft = NextLeftPosition[1] >= 0 && _area[NextLeftPosition[0], NextLeftPosition[1]] != 0 ? true : false;
 
-            NextLeftPositionResult = CanGoLeft ? _area[_nextLeftPosition[0], _nextLeftPosition[1]] : (int?)null;
+            NextLeftPositionResult = canGoLeft ? _area[NextLeftPosition[0], NextLeftPosition[1]] : (int?)null;
         }
 
     }
