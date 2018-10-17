@@ -22,72 +22,48 @@ namespace Amazon
             _numColumns = 2;
             int[,] area = { { 1, 1, 1, 1, 0 },
                             { 1, 1, 1, 9, 0 } };
-            int[] position = { 0, 0 };
+            int[] position = { 0, 0};
 
-            //Debug.WriteLine(area[0, 1]); // 1 
-            //Debug.WriteLine(area[0, 4]); // 9
-            //Debug.
+            //VerifyProperty();
+
+            //Debug.WriteLine(area[0, 1]); // first row, second column
+            //Debug.WriteLine(area[0, 4]); // first row, fourth column
 
             var total = Right(area, position);
 
             Debug.WriteLine(total);
         }
 
-        //static private int [] GetRightPosition(int[] currentPosition)
-        //{
-        //    return new int[] { currentPosition[0], currentPosition[1] + 1 };
-        //}
+        static private void VerifyProperty ()
+        {
+            int[,] area = { { 1, 1, 3, 1, 0 },
+                            { 1, 4, 1, 9, 0 } };
 
-        //static private int[] GetUpPosition(int[] currentPosition)
-        //{
-        //    return new int[] { currentPosition[0] -1, currentPosition[1] };
-        //}
+            int[] position = { 1, 2 };
 
-        //static private int[] GetDownPosition(int[] currentPosition)
-        //{
-        //    return new int[] { currentPosition[0] + 1, currentPosition[1] };
-        //}
+            var startingPosition = new Position(area, position);
 
-        //static private int[] GetLeftPosition(int[] currentPosition)
-        //{
-        //    return new int[] { currentPosition[0], currentPosition[1] - 1 };
-        //}
+            Debug.WriteLine("Right: " + startingPosition.NextRightPositionResult);
+            Debug.WriteLine("Left: " + startingPosition.NextLeftPositionResult);
+            Debug.WriteLine("Down: " + startingPosition.NextDownPositionResult);
+            Debug.WriteLine("Up: " + startingPosition.NextUpPositionResult);
 
-        //static private bool CanGoRight(int[] position)
-        //{
-        //    return position[1] < _numRows ? true : false;
-        //}
-        //static private bool CanGoDown (int[] position)
-        //{
-        //    return position[0] < _numColumns ? true : false;
-        //}
-        //static private bool CanGoUp (int[] position)
-        //{
-        //    return position[0] >= 0 ? true : false;
-        //}
-        //static private bool CanGoLeft (int[] position)
-        //{
-        //    return position[1] >= 0 ? true : false;
-        //}
+        }
 
         static private int Right(int[,] area, int[] currentPosition)
         {
             var position = new Position(area, currentPosition);
 
-            var isDeadEnd = (  !position.CanGoRight 
-                            && !position.CanGoDown 
-                            && !position.CanGoUp);
-
-            var next_right = GetRightPosition(currentPosition);
-            var next_up = GetUpPosition(currentPosition);
-            var next_down = GetDownPosition(currentPosition);
+            var isDeadEnd = (!position.canGoRight
+                            && !position.canGoDown
+                            && !position.canGoUp);
 
             if (isDeadEnd)
             {
                 return -100;
             }
 
-            if (CanGoRight(currentPosition))
+            if (position.canGoRight)
             {
                 if (area[next_right[0], next_right[1]] == 9)
                 {
@@ -97,7 +73,7 @@ namespace Amazon
                 if (area[next_right[0], next_right[1]] == 1)
                 {
                     return 1 + Right(area, next_right);
-                }                     
+                }
 
                 //if (currentPosition[0] == 0 && currentPosition[1] == 0)// if (0,0)
                 //{
@@ -114,7 +90,7 @@ namespace Amazon
 
                 if (area[next_down[0], next_down[1]] == 1)
                 {
-                    return 1 + Down(area,next_down);
+                    return 1 + Down(area, next_down);
                 }
 
                 if (area[next_right[0], next_right[1]] == 0 && isDeadEnd)
